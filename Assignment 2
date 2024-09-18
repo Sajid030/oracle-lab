@@ -1,9 +1,166 @@
 QUESTION 1:
+----------------------------------------------------------------
+
 QUESTION 2:
+SQL> DECLARE
+  2      input_number NUMBER;
+  3      is_prime BOOLEAN := TRUE;
+  4  BEGIN
+  5      -- Take user input
+  6      DBMS_OUTPUT.PUT_LINE('Enter a number:');
+  7      input_number := &number;
+  8
+  9      -- Check if the number is less than 2
+ 10      IF input_number < 2 THEN
+ 11          is_prime := FALSE;
+ 12      ELSE
+ 13          FOR i IN 2..FLOOR(SQRT(input_number)) LOOP
+ 14              IF MOD(input_number, i) = 0 THEN
+ 15                  is_prime := FALSE;
+ 16                  EXIT; -- No need to check further
+ 17              END IF;
+ 18          END LOOP;
+ 19      END IF;
+ 20
+ 21      -- Output the result
+ 22      IF is_prime THEN
+ 23          DBMS_OUTPUT.PUT_LINE(input_number || ' is a prime number.');
+ 24      ELSE
+ 25          DBMS_OUTPUT.PUT_LINE(input_number || ' is not a prime number.');
+ 26      END IF;
+ 27  END;
+ 28  /
+Enter value for number: 13
+old   7:     input_number := &number;
+new   7:     input_number := 13;
+Enter a number:
+13 is a prime number.
+
+---------------------------------------------------------------------
+
 QUESTION 3:
-QUESTION 4: 
+SQL> DECLARE
+  2      input_number NUMBER;
+  3      original_number NUMBER;
+  4      reversed_number NUMBER := 0;
+  5      digit NUMBER;
+  6  BEGIN
+  7      -- Take user input
+  8      DBMS_OUTPUT.PUT_LINE('Enter a number:');
+  9      input_number := &number;
+ 10
+ 11      original_number := input_number;
+ 12
+ 13      -- Reverse the number
+ 14      WHILE input_number > 0 LOOP
+ 15          digit := MOD(input_number, 10);
+ 16          reversed_number := reversed_number * 10 + digit;
+ 17          input_number := FLOOR(input_number / 10);
+ 18      END LOOP;
+ 19
+ 20      -- Output the result
+ 21      IF original_number = reversed_number THEN
+ 22          DBMS_OUTPUT.PUT_LINE(original_number || ' is a palindrome.');
+ 23      ELSE
+ 24          DBMS_OUTPUT.PUT_LINE(original_number || ' is not a palindrome.');
+ 25      END IF;
+ 26  END;
+ 27  /
+Enter value for number: 121
+old   9:     input_number := &number;
+new   9:     input_number := 121;
+Enter a number:
+121 is a palindrome.
+
+----------------------------------------------------------------------
+QUESTION 4:
+
+SQL> DECLARE
+  2      input_number NUMBER;
+  3      factorial NUMBER := 1;
+  4  BEGIN
+  5      -- Take user input
+  6      DBMS_OUTPUT.PUT_LINE('Enter a number:');
+  7      input_number := &number;
+  8
+  9      -- Calculate factorial
+ 10      IF input_number < 0 THEN
+ 11          DBMS_OUTPUT.PUT_LINE('Factorial is not defined for negative numbers.');
+ 12      ELSE
+ 13          FOR i IN 1..input_number LOOP
+ 14              factorial := factorial * i;
+ 15          END LOOP;
+ 16
+ 17          -- Output the result
+ 18          DBMS_OUTPUT.PUT_LINE('Factorial of ' || input_number || ' is ' || factorial);
+ 19      END IF;
+ 20  END;
+ 21  /
+Enter value for number: 5
+old   7:     input_number := &number;
+new   7:     input_number := 5;
+Enter a number:
+Factorial of 5 is 120
+
+------------------------------------------------------------------- 
 QUESTION 5:
+
+SQL> DECLARE
+  2      input_number NUMBER;
+  3      first NUMBER := 0;
+  4      second NUMBER := 1;
+  5      next NUMBER;
+  6  BEGIN
+  7      -- Take user input
+  8      DBMS_OUTPUT.PUT_LINE('Enter the number of terms in Fibonacci series:');
+  9      input_number := &number;
+ 10
+ 11      DBMS_OUTPUT.PUT_LINE('Fibonacci Series:');
+ 12
+ 13      FOR i IN 1..input_number LOOP
+ 14          IF i = 1 THEN
+ 15              DBMS_OUTPUT.PUT_LINE(first);
+ 16          ELSIF i = 2 THEN
+ 17              DBMS_OUTPUT.PUT_LINE(second);
+ 18          ELSE
+ 19              next := first + second;
+ 20              DBMS_OUTPUT.PUT_LINE(next);
+ 21              first := second;
+ 22              second := next;
+ 23          END IF;
+ 24      END LOOP;
+ 25  END;
+ 26  /
+Enter value for number: 5
+old   9:     input_number := &number;
+new   9:     input_number := 5;
+Enter the number of terms in Fibonacci series:
+Fibonacci Series:
+0
+1
+1
+2
+3
+
+--------------------------------------------------------------------
 QUESTION 6:
+
+SQL> DECLARE
+  2      sum_of_natural_numbers NUMBER := 0;
+  3      i NUMBER;
+  4  BEGIN
+  5      -- Calculate the sum of the first ten natural numbers
+  6      FOR i IN 1..10 LOOP
+  7          sum_of_natural_numbers := sum_of_natural_numbers + i;
+  8      END LOOP;
+  9
+ 10      -- Output the result
+ 11      DBMS_OUTPUT.PUT_LINE('Sum of the first ten natural numbers is: ' || sum_of_natural_numbers);
+ 12  END;
+ 13  /
+Sum of the first ten natural numbers is: 55
+
+------------------------------------------------------------------------
 QUESTION 8:
 QUESTION 9:
 QUESTION 10:
