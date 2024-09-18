@@ -162,7 +162,150 @@ Sum of the first ten natural numbers is: 55
 
 ------------------------------------------------------------------------
 QUESTION 7:
+DECLARE
+  2      radius        NUMBER;
+  3      area          NUMBER;
+  4      perimeter     NUMBER;
+  5      pi            CONSTANT NUMBER := 3.14159; -- Approximation of Pi
+  6  BEGIN
+  7      radius := &radius; -- Example radius value
+  8      -- Calculate area and perimeter
+  9      area := pi * radius * radius;
+ 10      perimeter := 2 * pi * radius;
+ 11      -- Output the results
+ 12      DBMS_OUTPUT.PUT_LINE('Radius: ' || radius);
+ 13      DBMS_OUTPUT.PUT_LINE('Area: ' || area);
+ 14      DBMS_OUTPUT.PUT_LINE('Perimeter (Circumference): ' || perimeter);
+ 15  END;
+ 16  /
+
+-- Output of the program
+
+Enter value for radius: 5
+old   7:     radius := &radius; -- Example radius value
+new   7:     radius := 5; -- Example radius value
+Radius: 5
+Area: 78.53975
+Perimeter (Circumference): 31.4159
+--------------------------------------------------------------------------------------------------------------------------------
 QUESTION 8:
+
+  DECLARE
+      num1       NUMBER;
+      num2       NUMBER;
+      num3       NUMBER;
+      greatest    NUMBER;
+  BEGIN
+      -- Input numbers
+      num1 := &num1;  -- Prompts for first number
+      num2 := &num2;  -- Prompts for second number
+      num3 := &num3;  -- Prompts for third number
+  
+      -- Compare the three numbers to find the greatest
+      IF (num1 >= num2) AND (num1 >= num3) THEN
+          greatest := num1;
+      ELSIF (num2 >= num1) AND (num2 >= num3) THEN
+          greatest := num2;
+      ELSE
+          greatest := num3;
+      END IF;
+  
+      -- Output the greatest number
+      DBMS_OUTPUT.PUT_LINE('The greatest number is: ' || greatest);
+  END;
+  /
+
+-- OUTPUT OF THE PROGRAM
+Enter value for num1: 13
+old   8:     num1 := &num1;  -- Prompts for first number
+new   8:     num1 := 13;  -- Prompts for first number
+Enter value for num2: 15
+old   9:     num2 := &num2;  -- Prompts for second number
+new   9:     num2 := 15;  -- Prompts for second number
+Enter value for num3: 20
+old  10:     num3 := &num3;  -- Prompts for third number
+new  10:     num3 := 20;  -- Prompts for third number
+The greatest number is: 20
+----------------------------------------------------------------------------------------------------------------------------------------
 QUESTION 9:
+
+DECLARE
+    num      NUMBER;
+    result   VARCHAR2(10);
+BEGIN
+    -- Input number
+    num := &num;  -- Prompts for the number
+
+    -- Check if the number is odd or even
+    IF MOD(num, 2) = 0 THEN
+        result := 'Even';
+    ELSE
+        result := 'Odd';
+    END IF;
+
+    -- Output the result
+    DBMS_OUTPUT.PUT_LINE('The number ' || num || ' is ' || result || '.');
+END;
+/
+
+-- OUTPUT OF THE PROGRAM
+Enter value for num: 23
+old   6:     num := &num;  -- Prompts for the number
+new   6:     num := 23;  -- Prompts for the number
+The number 23 is Odd.
+
+Enter value for num: 24
+old   6:     num := &num;  -- Prompts for the number
+new   6:     num := 24;  -- Prompts for the number
+The number 24 is Even.
+----------------------------------------------------------------------------------------------------------------------------------------
 QUESTION 10:
+
+DECLARE
+    num1      NUMBER;
+    num2      NUMBER;
+    num3      NUMBER;
+    temp      NUMBER;
+BEGIN
+    -- Input numbers
+    num1 := &num1;  -- Prompts for first number
+    num2 := &num2;  -- Prompts for second number
+    num3 := &num3;  -- Prompts for third number
+
+    -- Sort the numbers in ascending order using a simple comparison method
+    IF num1 > num2 THEN
+        temp := num1;
+        num1 := num2;
+        num2 := temp;
+    END IF;
+
+    IF num1 > num3 THEN
+        temp := num1;
+        num1 := num3;
+        num3 := temp;
+    END IF;
+
+    IF num2 > num3 THEN
+        temp := num2;
+        num2 := num3;
+        num3 := temp;
+    END IF;
+
+    -- Output the numbers in ascending order
+    DBMS_OUTPUT.PUT_LINE('Numbers in ascending order: ' || num1 || ', ' || num2 || ', ' || num3);
+END;
+/
+
+-- OUTPUT OF THE PROGRAM
+Enter value for num1: 12
+old   8:     num1 := &num1;  -- Prompts for first number
+new   8:     num1 := 12;  -- Prompts for first number
+Enter value for num2: 13
+old   9:     num2 := &num2;  -- Prompts for second number
+new   9:     num2 := 13;  -- Prompts for second number
+Enter value for num3: 14
+old  10:     num3 := &num3;  -- Prompts for third number
+new  10:     num3 := 14;  -- Prompts for third number
+Numbers in ascending order: 12, 13, 14
+-------------------------------------------------------------------------------------------------------------------------------------
 QUESTION 11:
