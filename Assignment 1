@@ -25,15 +25,42 @@ VALUES
 
 select * from employees1;
 
-
+(A)
 SELECT ename 
 FROM employees1
 WHERE salary < 20000;
 
 OUTPUT:
-ename
 ANIL
 TOMAR
 MILIND
 SAXENA
 TOMAR
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+(B)
+SELECT *
+FROM employees1
+WHERE dept_name = 'SALES' AND designation = 'MANAGER';
+
+OUTPUT:
+BHASKAR	SALES	MANAGER	28500	1999-05-01
+-------------------------------------------------------------------------------------------------------------------------------------------------
+(C)
+SELECT *
+FROM employees1
+WHERE ename LIKE 'S%';
+
+OUTPUT:
+SCINDIA	RESEARCH	ANALYST	30000	2002-12-09
+SAXENA	SALES	SALESMAN	12500	1999-09-28
+SURESH	RESEARCH	CLERK	8000	1992-12-17
+--------------------------------------------------------------------------------------------------------------------------------------------------
+(D)
+SELECT COUNT(*) AS total_employees
+FROM employees1
+WHERE dept_name = 'RESEARCH';
+OUTPUT:
+5
+---------------------------------------------------------------------------------------------------------------------------------------------------
+(E)
