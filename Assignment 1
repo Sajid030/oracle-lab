@@ -53,7 +53,7 @@ WHERE ename LIKE 'S%';
 
 OUTPUT:
 SCINDIA	RESEARCH	ANALYST	30000	2002-12-09
-SAXENA	SALES	SALESMAN	12500	1999-09-28
+SAXENA	SALES	   SALESMAN	12500	1999-09-28
 SURESH	RESEARCH	CLERK	8000	1992-12-17
 --------------------------------------------------------------------------------------------------------------------------------------------------
 (D)
@@ -69,4 +69,4 @@ FROM employees1
 WHERE date_of_join > '2010-01-01';
 OUTPUT: 
 KARAN	ACCOUNTING	DIRECTOR	50000	2012-11-17
-JOY	RESEARCH	MANAGER	29750	2011-04-02
+JOY	    RESEARCH	MANAGER	    29750	2011-04-02
