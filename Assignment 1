@@ -291,3 +291,135 @@ EMPNO	ENAME	JOB 	     MGR	HIREDATE	SAL 	COMM	DEPTNO
 7499	ALLEN	SALESMAN	7698	1981-02-20	1600	300 	30
 7521	WARD	SALESMAN	7698	1981-02-22	1450	500 	30
 7934	MILLER	CLERK   	7782	1982-01-23	1300	NULL	10
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+(6)
+SELECT * 
+FROM EMP
+WHERE SAL > (SELECT MAX(SAL) FROM EMP WHERE JOB = 'MANAGER');
+OUTPUT:
+EMPNO	ENAME	JOB     	MGR 	HIREDATE	SAL 	COMM	DEPTNO
+7839	KING	PRESIDENT 	NULL	1981-11-17	5000	NULL	10
+7788	SCOTT	ANALYST 	7566	1982-12-09	3000	NULL	20
+7902	FORD	ANALYST 	7566	1981-12-03	3000	NULL	20
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+(7)
+SELECT JOB, MAX(SAL) AS Highest_Salary
+FROM EMP
+GROUP BY JOB;
+
+OUTPUT:
+
+JOB     	Highest_Salary
+PRESIDENT	5000
+MANAGER 	2975
+ANALYST 	3000
+SALESMAN	1600
+CLERK   	1300
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+(8)
+SELECT e.*
+FROM EMP e
+JOIN (
+    SELECT DEPTNO, MAX(HIREDATE) AS Latest_Hire_Date
+    FROM EMP
+    GROUP BY DEPTNO
+) latest ON e.DEPTNO = latest.DEPTNO AND e.HIREDATE = latest.Latest_Hire_Date;
+
+OUTPUT:
+EMPNO	ENAME	JOB     	MGR 	HIREDATE	SAL 	COMM	DEPTNO
+7839	KING	PRESIDENT	NULL	1981-11-17	5000	NULL	10
+7788	SCOTT	ANALYST 	7566	1982-12-09	3000	NULL	20
+7844	TURNER	SALESMAN	7698	1981-09-08	1500	0   	30
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+(9)
+SELECT EXTRACT(YEAR FROM HIREDATE) AS Year, COUNT(*) AS Number_of_Employees
+FROM EMP
+GROUP BY EXTRACT(YEAR FROM HIREDATE)
+ORDER BY Number_of_Employees DESC;
+
+OUTPUT:
+Year	Number_of_Employees
+1981	5
+1982	3
+1983	1
+------------------------------------------------------------------------------------------------------------------------------------------------------
+(10)
+SELECT DEPTNO, SUM(SAL + NVL(COMM, 0)) AS Total_Remuneration
+FROM EMP
+GROUP BY DEPTNO
+ORDER BY Total_Remuneration DESC;
+
+OUTPUT:
+DEPTNO	Total_Remuneration
+30  	9400
+20  	9000
+10  	8750
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+(11)
+SELECT EMPNO, ENAME, JOB, HIREDATE, SAL, 
+       CASE 
+           WHEN HIREDATE = (SELECT MAX(HIREDATE) FROM EMP) 
+           THEN '*' 
+           ELSE '' 
+       END AS Marker
+FROM EMP;
+
+OUTPUT:
+
+EMPNO	ENAME	JOB     	HIREDATE	SAL 	Marker
+7839	KING	PRESIDENT	1981-11-17	5000	
+7788	SCOTT	ANALYST 	1982-12-09	3000	
+7902	FORD	ANALYST 	1981-12-03	3000	
+7934	MILLER	CLERK   	1982-01-23	1300	  *
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+(12)
+SELECT EMPNO, ENAME, JOB, SAL, DEPTNO
+FROM EMP e
+WHERE SAL > (SELECT AVG(SAL) 
+             FROM EMP 
+             WHERE DEPTNO = e.DEPTNO);
+
+OUTPUT:
+
+EMPNO	ENAME	JOB     	SAL 	DEPTNO
+7839	KING	PRESIDENT	5000	10
+7566	JONES	MANAGER 	2975	20
+7698	BLAKE	MANAGER 	2850	30
+7788	SCOTT	ANALYST 	3000	20
+7902	FORD	ANALYST 	3000	20
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(13)
+SELECT SAL
+FROM (
+    SELECT SAL, ROW_NUMBER() OVER (ORDER BY SAL DESC) AS rnk
+    FROM EMP
+) 
+WHERE rnk = 3;
+
+OUTPUT:
+SAL
+3000
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(14)
+SELECT EMPNO, ENAME, JOB, HIREDATE, SAL, DEPTNO, COUNT(*)
+FROM EMP
+GROUP BY EMPNO, ENAME, JOB, HIREDATE, SAL, DEPTNO
+HAVING COUNT(*) > 1;
+
+OUTPUT:
+EMPNO	ENAME	JOB     	HIREDATE	SAL 	DEPTNO	COUNT(*)
+7499	ALLEN	SALESMAN	1981-02-20	1600	30  	2
+7844	TURNER	SALESMAN	1981-09-08	1500	30     	2
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+(15)
+SELECT ENAME, HIREDATE,
+       FLOOR(MONTHS_BETWEEN(SYSDATE, HIREDATE) / 12) AS Years,
+       MOD(MONTHS_BETWEEN(SYSDATE, HIREDATE), 12) AS Months
+FROM EMP;
+
+OUTPUT:
+ENAME	HIREDATE	Years	Months
+KING	1981-11-17	42  	10
+SCOTT	1982-12-09	41  	9
+FORD	1981-12-03	42  	9
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
