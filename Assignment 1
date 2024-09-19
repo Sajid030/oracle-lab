@@ -165,7 +165,272 @@ GEORGE	SALES	   CLERK	9500	1990-12-03
 SURESH	RESEARCH	CLERK	8000	1992-12-17
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
+==========> QUESTION 2:
 
+CREATE TABLE STUDIES (
+    PNAME VARCHAR(30),
+    SPLACE VARCHAR(30),
+    COURSE VARCHAR(30),
+    CCOST NUMBER
+);
+INSERT INTO STUDIES (PNAME, SPLACE, COURSE, CCOST)
+VALUES 
+(('John', 'MIT', 'PGDCA', 10000),
+('Jane', 'PRAGATHI', 'Data Science', 15000),
+('Alice', 'Harvard', 'Artificial Intelligence', 18000),
+('Rakesh', 'Oxford', 'Software Engineering', 12000),
+('Emily', 'Cambridge', 'Cyber Security', 16000),
+('Michael', 'Princeton', 'PGDCA', 14000),
+('Sarah', 'Pentafour', 'Cloud Computing', 17000));
+
+
+CREATE TABLE SOFTWARE (
+    PNAME VARCHAR(30),
+    TITLE VARCHAR(30),
+    DEVIN VARCHAR(30),
+    SCOST NUMBER,
+    DCOST NUMBER,
+    SOLD NUMBER
+);
+INSERT INTO SOFTWARE (PNAME, TITLE, DEVIN, SCOST, DCOST, SOLD)
+VALUES 
+(('JohN', 'AI Assistant', 'Python', 5000, 2000, 100),
+('Jane', 'Data Analyzer', 'Oracle', 7000, 3000, 150),
+('Alice', 'Image Recognizer', 'Java', 9000, 4000, 80),
+('Rakesh', 'Web Scraper', 'Python', 3000, 1500, 120),
+('Emily', 'Cyber Defense', 'C++', 11000, 5000, 90),
+('Michael', 'Network Monitor', 'Oracle', 8000, 3500, 70),
+('Sarah', 'Cloud Manager', 'VB', 6000, 2500, 110));
+
+
+CREATE TABLE PROGRAMMER (
+    PNAME VARCHAR(30),
+    DOB DATE,
+    DOJ DATE,
+    SEX CHAR(5),
+    PROF1 VARCHAR(30),
+    PROF2 VARCHAR(30),
+    SAL NUMBER
+);
+INSERT INTO PROGRAMMER (PNAME, DOB, DOJ, SEX, PROF1, PROF2, SAL)
+VALUES
+(('John', TO_DATE('1990-05-15', 'YYYY-MM-DD'), TO_DATE('2020-01-01', 'YYYY-MM-DD'), 'M', 'Python', 'AI', 75000),
+('Jane', TO_DATE('1988-07-22', 'YYYY-MM-DD'), TO_DATE('2018-03-12', 'YYYY-MM-DD'), 'F', 'R', 'Data Science', 80000),
+('Alice', TO_DATE('1992-09-10', 'YYYY-MM-DD'), TO_DATE('2019-06-05', 'YYYY-MM-DD'), 'F', 'Java', 'AI', 90000),
+('Rakesh', TO_DATE('1985-04-18', 'YYYY-MM-DD'), TO_DATE('2016-11-25', 'YYYY-MM-DD'), 'M', 'Python', 'Web Development', 70000),
+('Emily', TO_DATE('1991-12-01', 'YYYY-MM-DD'), TO_DATE('2021-04-20', 'YYYY-MM-DD'), 'F', 'C++', 'Cyber Security', 85000),
+('Michael', TO_DATE('1987-08-30', 'YYYY-MM-DD'), TO_DATE('2017-08-14', 'YYYY-MM-DD'), 'M', 'JavaScript', 'Networking', 78000),
+('Sarah', TO_DATE('1993-11-05', 'YYYY-MM-DD'), TO_DATE('2022-02-10', 'YYYY-MM-DD'), 'F', 'C', 'Cloud Computing', 88000));
+
+//QUERIES:
+
+1. SELECT AVG(SCOST) AS AvgSellingCost FROM SOFTWARE WHERE DEVIN = 'Oracle';
+OUTPUT:
+AvgSellingCost
+7500
+-----------------------------------------------------------------------------------------------------------------------------------------------
+2. SELECT PNAME, FLOOR(MONTHS_BETWEEN(SYSDATE, DOB) / 12) AS Age, FLOOR(MONTHS_BETWEEN(SYSDATE, DOJ) / 12) AS Experience FROM PROGRAMMER;
+OUTPUT:
+PNAME	  Age	Experience
+John	  34	4
+Jane	  36	6
+Alice	  32	5
+Rakesh	  39	7
+Michael	  37	7
+Emily	  31	3
+Sarah	  29	2
+-----------------------------------------------------------------------------------------------------------------------------------------------
+3. SELECT PNAME FROM STUDIES WHERE COURSE = 'PGDCA';
+OUTPUT:
+PNAME
+John
+Michael
+-----------------------------------------------------------------------------------------------------------------------------------------------
+4. SELECT MAX(SOLD) AS MaxSold FROM SOFTWARE;
+OUTPUT:
+MaxCopiesSold
+150
+-----------------------------------------------------------------------------------------------------------------------------------------------
+5. SELECT PNAME, DOB FROM PROGRAMMER WHERE EXTRACT(MONTH FROM DOB) = 4;
+OUTPUT:
+PNAME	    DOB
+Rakesh	    1985-04-18
+-----------------------------------------------------------------------------------------------------------------------------------------------
+6. SELECT MIN(CCOST) AS MinCourseFee FROM STUDIES;
+OUTPUT:
+LowestCourseFee
+10000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+7. SELECT COUNT(*) AS PGDCACount FROM STUDIES WHERE COURSE = 'PGDCA';
+OUTPUT:
+PGDCACount
+2
+-----------------------------------------------------------------------------------------------------------------------------------------------
+8. SELECT SUM(SCOST * SOLD) AS Revenue FROM SOFTWARE WHERE DEVIN = 'C++';
+OUTPUT:
+TotalRevenue
+990000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+9. SELECT * FROM SOFTWARE WHERE PNAME = 'Rakesh';
+OUTPUT:
+PNAME	TITLE	    DEVIN	    SCOST	DCOST	SOLD
+Rakesh	Web Scraper	Python	    3000	1500	120
+-----------------------------------------------------------------------------------------------------------------------------------------------
+10. SELECT COUNT(*) AS PentafourCount FROM STUDIES WHERE SPLACE = 'Pentafour';
+OUTPUT:
+PentafourCount
+1
+-----------------------------------------------------------------------------------------------------------------------------------------------
+11. SELECT * FROM SOFTWARE WHERE SCOST * SOLD > 5000;
+OUTPUT:
+PNAME	    TITLE	            DEVIN	    SCOST	DCOST	SOLD
+John	    AI Assistant	    Python	    5000	2000	100
+Jane	    Data Analyzer	    Oracle	    7000	3000	150
+Alice	    Image Recognizer	Java	    9000	4000	80
+Rakesh	    Web Scraper	        Python	    3000	1500	120
+Emily	    Cyber Defense	    C++ 	    11000	5000	90
+Michael	    Network Monitor	    Oracle  	8000	3500	70
+Sarah	    Cloud Manager	    VB      	6000	2500	110
+-----------------------------------------------------------------------------------------------------------------------------------------------
+12. SELECT PNAME, TITLE, CEIL(DCOST / SCOST) AS CopiesToRecover FROM SOFTWARE;
+OUTPUT:
+PNAME	TITLE	            CopiesToRecover
+John	AI Assistant	    1
+Jane	Data Analyzer	    1
+Alice	Image Recognizer	1
+Rakesh	Web Scraper	        1
+Emily	Cyber Defense	    1
+Michael	Network Monitor	    1
+Sarah	Cloud Manager	    1
+-----------------------------------------------------------------------------------------------------------------------------------------------
+13. SELECT * FROM SOFTWARE WHERE SCOST * SOLD >= DCOST;
+OUTPUT:
+PNAME	    TITLE	            DEVIN	    SCOST	DCOST	SOLD
+John	    AI Assistant	    Python	    5000	2000	100
+Jane	    Data Analyzer	    Oracle	    7000	3000	150
+Alice	    Image Recognizer	Java	    9000	4000	80
+Rakesh	    Web Scraper	        Python	    3000	1500	120
+Emily	    Cyber Defense	    C++ 	    11000	5000	90
+Michael	    Network Monitor	    Oracle  	8000	3500	70
+Sarah	    Cloud Manager	    VB      	6000	2500	110
+-----------------------------------------------------------------------------------------------------------------------------------------------
+14. SELECT MAX(SCOST) AS CostliestPrice FROM SOFTWARE WHERE DEVIN = 'VB';
+OUTPUT:
+CostliestInVB
+6000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+15. SELECT COUNT(*) AS OraclePackages FROM SOFTWARE WHERE DEVIN = 'Oracle';
+OUTPUT:
+OraclePackages
+2
+-----------------------------------------------------------------------------------------------------------------------------------------------
+16. SELECT COUNT(*) AS PragathiCount FROM STUDIES WHERE SPLACE = 'PRAGATHI';
+OUTPUT:
+PragathiCount
+1
+-----------------------------------------------------------------------------------------------------------------------------------------------
+17. SELECT COUNT(*) AS CourseFeeRangeCountv FROM STUDIES WHERE CCOST BETWEEN 10000 AND 15000;
+OUTPUT:
+CourseFeeRangeCount
+4
+-----------------------------------------------------------------------------------------------------------------------------------------------
+18. SELECT AVG(CCOST) AS AvgCourseFee FROM STUDIES;
+OUTPUT:
+AvgCourseFee
+14000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+19. SELECT * FROM PROGRAMMER WHERE PROF1 = 'C' OR PROF2 = 'C';
+OUTPUT:
+PNAME     DOB           DOJ            SEX     PROF1      PROF2               SAL
+Sarah     1993-11-05    2022-02-10     F       C          Cloud Computing     88000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+20. SELECT COUNT(*) AS KnowCorPascal FROM PROGRAMMER WHERE PROF1 IN ('C', 'Pascal') OR PROF2 IN ('C', 'Pascal');
+OUTPUT:
+KnowCorPascal
+0
+-----------------------------------------------------------------------------------------------------------------------------------------------
+21. SELECT COUNT(*) AS NotKnowingCandCPlusPlus FROM PROGRAMMER WHERE PROF1 NOT IN ('C', 'C++') AND PROF2 NOT IN ('C', 'C++');
+OUTPUT:
+NotKnowingCandCPlusPlus
+5
+-----------------------------------------------------------------------------------------------------------------------------------------------
+22. SELECT MAX(FLOOR(MONTHS_BETWEEN(SYSDATE, DOB) / 12)) AS OldestAge FROM PROGRAMMER WHERE SEX = 'M';
+OUTPUT:
+OldestAge
+39
+-----------------------------------------------------------------------------------------------------------------------------------------------
+23. SELECT AVG(FLOOR(MONTHS_BETWEEN(SYSDATE, DOB) / 12)) AS AvgFemaleAge FROM PROGRAMMER WHERE SEX = 'F';
+OUTPUT:
+AvgFemaleAge
+32
+-----------------------------------------------------------------------------------------------------------------------------------------------
+24. SELECT PNAME,  FLOOR(MONTHS_BETWEEN(SYSDATE, DOJ) / 12) AS Experience FROM PROGRAMMER ORDER BY Experience DESC;
+OUTPUT:
+PNAME	    Experience
+Rakesh	    7
+Michael	    7
+Jane	    6
+Alice	    5
+John	    4
+Emily	    3
+Sarah	    2
+-----------------------------------------------------------------------------------------------------------------------------------------------
+25. SELECT PNAME, DOB FROM PROGRAMMER WHERE EXTRACT(MONTH FROM DOB) = EXTRACT(MONTH FROM SYSDATE);
+OUTPUT:
+PNAME	DOB
+(None)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+26. SELECT COUNT(*) AS FemaleProgrammers FROM PROGRAMMER WHERE SEX = 'F';
+OUTPUT:
+FemaleProgrammers
+3
+-----------------------------------------------------------------------------------------------------------------------------------------------
+27. SELECT DISTINCT PROF1 AS Language FROM PROGRAMMER WHERE SEX = 'M' UNION SELECT DISTINCT PROF2 AS Language FROM PROGRAMMER WHERE SEX = 'M';
+OUTPUT:
+Language
+Python
+AI
+Web Development
+JavaScript
+Networking
+-----------------------------------------------------------------------------------------------------------------------------------------------
+28. SELECT AVG(SAL) AS AvgSalary FROM PROGRAMMER;
+OUTPUT:
+AvgSalary
+80428.57
+-----------------------------------------------------------------------------------------------------------------------------------------------
+29. SELECT COUNT(*) AS SalaryRangeCount FROM PROGRAMMER WHERE SAL BETWEEN 5000 AND 7500;
+OUTPUT:
+SalaryRangeCount
+0
+-----------------------------------------------------------------------------------------------------------------------------------------------
+30. SELECT * FROM PROGRAMMER WHERE PROF1 NOT IN ('C', 'C++', 'Pascal') AND PROF2 NOT IN ('C', 'C++', 'Pascal');
+OUTPUT:
+PNAME	DOB	        DOJ	        SEX	PROF1	          PROF2	        SAL
+John	1990-01-01	2020-01-01	M	Python	          AI	        80000
+Jane	1988-02-20	2018-02-20	F	Web Development	  JavaScript	85000
+Alice	1992-03-15	2019-03-15	F	AI	              Python	    83000
+Rakesh	1985-04-10	2017-04-10	M	Networking	      AI	        90000
+Michael	1987-05-18	2017-05-18	M	Web Development	  JavaScript	82000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+31. SELECT PNAME, TITLE, MAX(SCOST) AS CostliestPackage FROM SOFTWARE GROUP BY PNAME, TITLE ORDER BY PNAME;
+OUTPUT:
+PNAME	TITLE	            CostliestPackage
+Alice	Image Recognizer	9000
+Rakesh	Web Scraper	        3000
+Emily	Cyber Defense	    11000
+Jane	Data Analyzer	    7000
+John	AI Assistant	    5000
+Michael	Network Monitor	    8000
+Sarah	Cloud Manager	    6000
+-----------------------------------------------------------------------------------------------------------------------------------------------
+32. SELECT 'Programmer Mr. ' || PNAME || ' – has ' || FLOOR(MONTHS_BETWEEN(SYSDATE, DOJ) / 12) || ' years of experience' AS Output FROM PROGRAMMER WHERE SEX = 'M';
+OUTPUT:
+Output
+Programmer Mr. John – has 4 years of experience
+Programmer Mr. Rakesh – has 7 years of experience
+Programmer Mr. Michael – has 7 years of experience
+-----------------------------------------------------------------------------------------------------------------------------------------------
 
 
 QUESTION NUMBER 3
