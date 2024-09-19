@@ -309,3 +309,15 @@ new  10:     num3 := 14;  -- Prompts for third number
 Numbers in ascending order: 12, 13, 14
 -------------------------------------------------------------------------------------------------------------------------------------
 QUESTION 11:
+create table Emp(ename varchar2(15),ecity varchar2(15),salary number(10,2),enumber number, PRIMARY KEY(enumber), eaddress varchar(30), deptname varchar(20));
+insert into emp values('John','Delhi',20000,1,'Sarita Vihar, Delhi', 'IT');
+insert into emp values('Hope','Gurgaon',45000,2,'Sector 49, Gurgaon', 'Technical');
+insert into emp values('Mark','Faridabad',60000,3,'Sector 16, Faridabad', 'HR');
+
+create table Company(cname varchar2(15),ccity varchar2(15),empnumber number);
+
+
+a) create view empdata as select ename,ecity from emp;
+b) update empdata set ecity='Delhi' where ename='John';
+c) CREATE  VIEW emp_company AS  SELECT enumber, ename, ecity, salary, eaddress, deptname, cname, ccity FROM Emp LEFT JOIN  Company ON enumber = empnumber;
+d) 
